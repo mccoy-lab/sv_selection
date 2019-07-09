@@ -17,4 +17,4 @@ background_indices=`cat sample_index_manualassign.txt | grep ${background_pop} |
   --background ${background_indices} \
   --type GL \
   --file ${input_file} \
-  > ${output_file}.fst
+  > ${output_file}
