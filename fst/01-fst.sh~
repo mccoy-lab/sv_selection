@@ -1,0 +1,16 @@
+#!/bin/bash
+
+target_pop=$1
+background_pop=$2
+input_file=$3
+output_file=$4
+
+target_indices=`cat sample_index_manualassign.txt | grep ${target_pop} | cut -f1 | tr '\n' ','`
+background_indices=`cat sample_index_manualassign.txt | grep ${background_pop} | cut -f1 | tr '\n' ','`
+
+~/work/progs/vcflib/bin/wcFst \
+  --target ${target_indices} \
+  --background ${background_indices} \
+  --type GL \
+  --file ${input_file} \
+  > ${output_file}.fst
