@@ -1,0 +1,27 @@
+This directory contains a collection of 99,382 sequence-resolved insertion and deletion SV calls that were genotyped in 440 population samples. Variants were merged from all samples.
+
+
+### Files ###
+* EEE_SV-Pop_1.ALL.genotypes.20181204.vcf.gz
+  * Genotyped SV calls
+* EEE_SV-Pop_1.ALL.genotypes.20181204.vcf.gz.tbi
+  * VCF index
+
+
+### Citations ###
+
+When using these genotypes, please cite:
+
+[1] Audano, P. A., Sulovari, S., Graves-Lindsay, T. A., Cantsilieris, S., Sorensen, M., Welch, A. E., … Eichler, E. E., Characterizing the major structural variant alleles of the human genome. Cell, In Press
+
+[2] Shi, L., Guo, Y., Dong, C., Huddleston, J., Yang, H., Han, X., … Wang, K. (2016). Long-read sequencing and de novo assembly of a Chinese genome. Nature Communications, 7(May), 12065. https://doi.org/10.1038/ncomms12065
+
+[3] Seo, J.-S., Rhie, A., Kim, J., Lee, S., Sohn, M.-H., Kim, C.-U., … Kim, C. (2016). De novo assembly and phasing of a Korean human genome. Nature, 538(7624), 243–247. https://doi.org/10.1038/nature20098
+
+[4] The 1000 Genomes Project Consortium. (2015). A global reference for human genetic variation. Nature, 526(7571), 68–74. https://doi.org/10.1038/nature15393
+
+[5] Mallick, S., Li, H., Lipson, M., Mathieson, I., Gymrek, M., Racimo, F., … Reich, D. (2016). The Simons Genome Diversity Project: 300 genomes from 142 diverse populations. Nature, 538(7624), 201–206. https://doi.org/10.1038/nature18964
+
+Variant calls and the genotyping method were published in [1]. HX1 variants were called using data in [2], and AK1 variants were called using data in [3]. 
+
+High coverage short read samples used for genotyping were obtained from 1000 Genomes (1KG) Phase 3 [4] and the Simons Genome Diversity Project (SGDP) [5]. 24 samples were part of the original 1KG Phase 3 effort, and 150 samples were recently sequenced to high coverage through the Polaris project (https://github.com/Illumina/Polaris). The remaining 266 samples were obtained from SGDP. The sample names in the VCF are structured using source ("1KG", "POLARIS", or "SGDP"), an underscore ("_"), and the sample name (e.g. "SGDP_HG03006").
