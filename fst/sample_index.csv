@@ -1,0 +1,441 @@
+Source,Sample_ID,Region,Details,More_Details,Index
+1KG,1KG_HG00096,GBR,British in England and Scotland,NaN,0
+1KG,1KG_HG00268,FIN,Finnish in Finland,NaN,1
+1KG,1KG_HG00419,CHS,"Southern Han Chinese, China",NaN,2
+1KG,1KG_HG00759,CDX,"Chinese Dai in Xishuangbanna, China",NaN,3
+1KG,1KG_HG01051,PUR,Puerto Rican in Puerto Rico,NaN,4
+1KG,1KG_HG01112,CLM,"Colombian in Medellin, Colombia",NaN,5
+1KG,1KG_HG01500,IBS,Iberian populations in Spain,NaN,6
+1KG,1KG_HG01565,PEL,"Peruvian in Lima, Peru",NaN,7
+1KG,1KG_HG01583,PJL,"Punjabi in Lahore,Pakistan",NaN,8
+1KG,1KG_HG01595,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,9
+1KG,1KG_HG01879,ACB,African Caribbean in Barbados,NaN,10
+1KG,1KG_HG02568,GWD,"Gambian in Western Division, The Gambia",NaN,11
+1KG,1KG_HG02922,ESN,Esan in Nigeria,NaN,12
+1KG,1KG_HG03006,BEB,Bengali in Bangladesh,NaN,13
+1KG,1KG_HG03052,MSL,Mende in Sierra Leone,NaN,14
+1KG,1KG_HG03642,STU,Sri Lankan Tamil in the UK,NaN,15
+1KG,1KG_HG03742,ITU,Indian Telugu in the UK,NaN,16
+1KG,1KG_NA18525,CHB,"Han Chinese in Bejing, China",NaN,17
+1KG,1KG_NA18939,JPT,"Japanese in Tokyo, Japan",NaN,18
+1KG,1KG_NA19017,LWK,"Luhya in Webuye, Kenya",NaN,19
+1KG,1KG_NA19625,ASW,African Ancestry in Southwest US,NaN,20
+1KG,1KG_NA19648,MXL,"Mexican Ancestry in Los Angeles, California",NaN,21
+1KG,1KG_NA20502,TSI,Toscani in Italy,NaN,22
+1KG,1KG_NA20845,GIH,"Gujarati Indian in Houston,TX",NaN,23
+1KG,POLARIS_HG00096,GBR,British in England and Scotland,NaN,24
+1KG,POLARIS_HG00098,GBR,British in England and Scotland,NaN,25
+1KG,POLARIS_HG00101,GBR,British in England and Scotland,NaN,26
+1KG,POLARIS_HG00103,GBR,British in England and Scotland,NaN,27
+1KG,POLARIS_HG00107,GBR,British in England and Scotland,NaN,28
+1KG,POLARIS_HG00108,GBR,British in England and Scotland,NaN,29
+1KG,POLARIS_HG00109,GBR,British in England and Scotland,NaN,30
+1KG,POLARIS_HG00115,GBR,British in England and Scotland,NaN,31
+1KG,POLARIS_HG00116,GBR,British in England and Scotland,NaN,32
+1KG,POLARIS_HG00117,GBR,British in England and Scotland,NaN,33
+1KG,POLARIS_HG00119,GBR,British in England and Scotland,NaN,34
+1KG,POLARIS_HG00131,GBR,British in England and Scotland,NaN,35
+1KG,POLARIS_HG00136,GBR,British in England and Scotland,NaN,36
+1KG,POLARIS_HG00139,GBR,British in England and Scotland,NaN,37
+1KG,POLARIS_HG00181,FIN,Finnish in Finland,NaN,38
+1KG,POLARIS_HG00185,FIN,Finnish in Finland,NaN,39
+1KG,POLARIS_HG00190,FIN,Finnish in Finland,NaN,40
+1KG,POLARIS_HG00256,GBR,British in England and Scotland,NaN,41
+1KG,POLARIS_HG00264,GBR,British in England and Scotland,NaN,42
+1KG,POLARIS_HG00267,FIN,Finnish in Finland,NaN,43
+1KG,POLARIS_HG00273,FIN,Finnish in Finland,NaN,44
+1KG,POLARIS_HG00277,FIN,Finnish in Finland,NaN,45
+1KG,POLARIS_HG00280,FIN,Finnish in Finland,NaN,46
+1KG,POLARIS_HG00284,FIN,Finnish in Finland,NaN,47
+1KG,POLARIS_HG00351,FIN,Finnish in Finland,NaN,48
+1KG,POLARIS_HG00358,FIN,Finnish in Finland,NaN,49
+1KG,POLARIS_HG00366,FIN,Finnish in Finland,NaN,50
+1KG,POLARIS_HG00369,FIN,Finnish in Finland,NaN,51
+1KG,POLARIS_HG00371,FIN,Finnish in Finland,NaN,52
+1KG,POLARIS_HG00372,FIN,Finnish in Finland,NaN,53
+1KG,POLARIS_HG00448,CHS,"Southern Han Chinese, China",NaN,54
+1KG,POLARIS_HG00449,CHS,"Southern Han Chinese, China",NaN,55
+1KG,POLARIS_HG00583,CHS,"Southern Han Chinese, China",NaN,56
+1KG,POLARIS_HG00584,CHS,"Southern Han Chinese, China",NaN,57
+1KG,POLARIS_HG00595,CHS,"Southern Han Chinese, China",NaN,58
+1KG,POLARIS_HG00596,CHS,"Southern Han Chinese, China",NaN,59
+1KG,POLARIS_HG00610,CHS,"Southern Han Chinese, China",NaN,60
+1KG,POLARIS_HG00611,CHS,"Southern Han Chinese, China",NaN,61
+1KG,POLARIS_HG00613,CHS,"Southern Han Chinese, China",NaN,62
+1KG,POLARIS_HG00614,CHS,"Southern Han Chinese, China",NaN,63
+1KG,POLARIS_HG00650,CHS,"Southern Han Chinese, China",NaN,64
+1KG,POLARIS_HG00651,CHS,"Southern Han Chinese, China",NaN,65
+1KG,POLARIS_HG00656,CHS,"Southern Han Chinese, China",NaN,66
+1KG,POLARIS_HG00657,CHS,"Southern Han Chinese, China",NaN,67
+1KG,POLARIS_HG00662,CHS,"Southern Han Chinese, China",NaN,68
+1KG,POLARIS_HG00663,CHS,"Southern Han Chinese, China",NaN,69
+1KG,POLARIS_HG00683,CHS,"Southern Han Chinese, China",NaN,70
+1KG,POLARIS_HG00684,CHS,"Southern Han Chinese, China",NaN,71
+1KG,POLARIS_HG00844,CDX,"Chinese Dai in Xishuangbanna, China",NaN,72
+1KG,POLARIS_HG00881,CDX,"Chinese Dai in Xishuangbanna, China",NaN,73
+1KG,POLARIS_HG00982,CDX,"Chinese Dai in Xishuangbanna, China",NaN,74
+1KG,POLARIS_HG01619,IBS,Iberian populations in Spain,NaN,75
+1KG,POLARIS_HG01620,IBS,Iberian populations in Spain,NaN,76
+1KG,POLARIS_HG01623,IBS,Iberian populations in Spain,NaN,77
+1KG,POLARIS_HG01624,IBS,Iberian populations in Spain,NaN,78
+1KG,POLARIS_HG01625,IBS,Iberian populations in Spain,NaN,79
+1KG,POLARIS_HG01626,IBS,Iberian populations in Spain,NaN,80
+1KG,POLARIS_HG01628,IBS,Iberian populations in Spain,NaN,81
+1KG,POLARIS_HG01630,IBS,Iberian populations in Spain,NaN,82
+1KG,POLARIS_HG01682,IBS,Iberian populations in Spain,NaN,83
+1KG,POLARIS_HG01684,IBS,Iberian populations in Spain,NaN,84
+1KG,POLARIS_HG01685,IBS,Iberian populations in Spain,NaN,85
+1KG,POLARIS_HG01686,IBS,Iberian populations in Spain,NaN,86
+1KG,POLARIS_HG01707,IBS,Iberian populations in Spain,NaN,87
+1KG,POLARIS_HG01708,IBS,Iberian populations in Spain,NaN,88
+1KG,POLARIS_HG01756,IBS,Iberian populations in Spain,NaN,89
+1KG,POLARIS_HG01757,IBS,Iberian populations in Spain,NaN,90
+1KG,POLARIS_HG01761,IBS,Iberian populations in Spain,NaN,91
+1KG,POLARIS_HG01762,IBS,Iberian populations in Spain,NaN,92
+1KG,POLARIS_HG01770,IBS,Iberian populations in Spain,NaN,93
+1KG,POLARIS_HG01771,IBS,Iberian populations in Spain,NaN,94
+1KG,POLARIS_HG02016,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,95
+1KG,POLARIS_HG02017,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,96
+1KG,POLARIS_HG02069,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,97
+1KG,POLARIS_HG02070,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,98
+1KG,POLARIS_HG02072,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,99
+1KG,POLARIS_HG02073,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,100
+1KG,POLARIS_HG02075,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,101
+1KG,POLARIS_HG02076,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,102
+1KG,POLARIS_HG02130,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,103
+1KG,POLARIS_HG02131,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,104
+1KG,POLARIS_HG02356,CDX,"Chinese Dai in Xishuangbanna, China",NaN,105
+1KG,POLARIS_HG02372,CDX,"Chinese Dai in Xishuangbanna, China",NaN,106
+1KG,POLARIS_HG02373,CDX,"Chinese Dai in Xishuangbanna, China",NaN,107
+1KG,POLARIS_HG02374,CDX,"Chinese Dai in Xishuangbanna, China",NaN,108
+1KG,POLARIS_HG02375,CDX,"Chinese Dai in Xishuangbanna, China",NaN,109
+1KG,POLARIS_HG02381,CDX,"Chinese Dai in Xishuangbanna, China",NaN,110
+1KG,POLARIS_HG02383,CDX,"Chinese Dai in Xishuangbanna, China",NaN,111
+1KG,POLARIS_HG02384,CDX,"Chinese Dai in Xishuangbanna, China",NaN,112
+1KG,POLARIS_HG02385,CDX,"Chinese Dai in Xishuangbanna, China",NaN,113
+1KG,POLARIS_HG02386,CDX,"Chinese Dai in Xishuangbanna, China",NaN,114
+1KG,POLARIS_HG02388,CDX,"Chinese Dai in Xishuangbanna, China",NaN,115
+1KG,POLARIS_HG02391,CDX,"Chinese Dai in Xishuangbanna, China",NaN,116
+1KG,POLARIS_HG02409,CDX,"Chinese Dai in Xishuangbanna, China",NaN,117
+1KG,POLARIS_HG02512,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,118
+1KG,POLARIS_HG02513,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,119
+1KG,POLARIS_HG02521,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,120
+1KG,POLARIS_HG02522,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,121
+1KG,POLARIS_HG02524,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,122
+1KG,POLARIS_HG02525,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,123
+1KG,POLARIS_HG02561,GWD,"Gambian in Western Division, The Gambia",NaN,124
+1KG,POLARIS_HG02562,GWD,"Gambian in Western Division, The Gambia",NaN,125
+1KG,POLARIS_HG02620,GWD,"Gambian in Western Division, The Gambia",NaN,126
+1KG,POLARIS_HG02621,GWD,"Gambian in Western Division, The Gambia",NaN,127
+1KG,POLARIS_HG02721,GWD,"Gambian in Western Division, The Gambia",NaN,128
+1KG,POLARIS_HG02722,GWD,"Gambian in Western Division, The Gambia",NaN,129
+1KG,POLARIS_HG02768,GWD,"Gambian in Western Division, The Gambia",NaN,130
+1KG,POLARIS_HG02769,GWD,"Gambian in Western Division, The Gambia",NaN,131
+1KG,POLARIS_HG02771,GWD,"Gambian in Western Division, The Gambia",NaN,132
+1KG,POLARIS_HG02772,GWD,"Gambian in Western Division, The Gambia",NaN,133
+1KG,POLARIS_HG02851,GWD,"Gambian in Western Division, The Gambia",NaN,134
+1KG,POLARIS_HG02852,GWD,"Gambian in Western Division, The Gambia",NaN,135
+1KG,POLARIS_HG02973,ESN,Esan in Nigeria,NaN,136
+1KG,POLARIS_HG02974,ESN,Esan in Nigeria,NaN,137
+1KG,POLARIS_HG02982,GWD,"Gambian in Western Division, The Gambia",NaN,138
+1KG,POLARIS_HG02983,GWD,"Gambian in Western Division, The Gambia",NaN,139
+1KG,POLARIS_HG03039,GWD,"Gambian in Western Division, The Gambia",NaN,140
+1KG,POLARIS_HG03040,GWD,"Gambian in Western Division, The Gambia",NaN,141
+1KG,POLARIS_HG03063,MSL,Mende in Sierra Leone,NaN,142
+1KG,POLARIS_HG03064,MSL,Mende in Sierra Leone,NaN,143
+1KG,POLARIS_HG03069,MSL,Mende in Sierra Leone,NaN,144
+1KG,POLARIS_HG03096,MSL,Mende in Sierra Leone,NaN,145
+1KG,POLARIS_HG03097,MSL,Mende in Sierra Leone,NaN,146
+1KG,POLARIS_HG03099,ESN,Esan in Nigeria,NaN,147
+1KG,POLARIS_HG03100,ESN,Esan in Nigeria,NaN,148
+1KG,POLARIS_HG03120,ESN,Esan in Nigeria,NaN,149
+1KG,POLARIS_HG03121,ESN,Esan in Nigeria,NaN,150
+1KG,POLARIS_HG03129,ESN,Esan in Nigeria,NaN,151
+1KG,POLARIS_HG03130,ESN,Esan in Nigeria,NaN,152
+1KG,POLARIS_HG03168,ESN,Esan in Nigeria,NaN,153
+1KG,POLARIS_HG03169,ESN,Esan in Nigeria,NaN,154
+1KG,POLARIS_HG03246,GWD,"Gambian in Western Division, The Gambia",NaN,155
+1KG,POLARIS_HG03247,GWD,"Gambian in Western Division, The Gambia",NaN,156
+1KG,POLARIS_HG03300,ESN,Esan in Nigeria,NaN,157
+1KG,POLARIS_HG03301,ESN,Esan in Nigeria,NaN,158
+1KG,POLARIS_HG03306,ESN,Esan in Nigeria,NaN,159
+1KG,POLARIS_HG03307,ESN,Esan in Nigeria,NaN,160
+1KG,POLARIS_HG03445,MSL,Mende in Sierra Leone,NaN,161
+1KG,POLARIS_HG03451,MSL,Mende in Sierra Leone,NaN,162
+1KG,POLARIS_HG03452,MSL,Mende in Sierra Leone,NaN,163
+1KG,POLARIS_HG03484,MSL,Mende in Sierra Leone,NaN,164
+1KG,POLARIS_HG03485,MSL,Mende in Sierra Leone,NaN,165
+1KG,POLARIS_HG03520,ESN,Esan in Nigeria,NaN,166
+1KG,POLARIS_HG03521,ESN,Esan in Nigeria,NaN,167
+1KG,POLARIS_HG03574,MSL,Mende in Sierra Leone,NaN,168
+1KG,POLARIS_HG03575,MSL,Mende in Sierra Leone,NaN,169
+1KG,POLARIS_HG03577,MSL,Mende in Sierra Leone,NaN,170
+1KG,POLARIS_HG03578,MSL,Mende in Sierra Leone,NaN,171
+1KG,POLARIS_HG03582,MSL,Mende in Sierra Leone,NaN,172
+1KG,POLARIS_HG03583,MSL,Mende in Sierra Leone,NaN,173
+SGDP,SGDP_1771,WestEurasia,Iraq,Iraqi_Jew,174
+SGDP,SGDP_23827,WestEurasia,Turkey,Turkish,175
+SGDP,SGDP_24424,WestEurasia,Turkey,Turkish,176
+SGDP,SGDP_28439,CentralAsiaSiberia,Kyrgyzystan,Kyrgyz,177
+SGDP,SGDP_28440,CentralAsiaSiberia,Kyrgyzystan,Kyrgyz,178
+SGDP,SGDP_4291,WestEurasia,Iraq,Iraqi_Jew,179
+SGDP,SGDP_4695,WestEurasia,Yemen,Yemenite_Jew,180
+SGDP,SGDP_5433,WestEurasia,Yemen,Yemenite_Jew,181
+SGDP,SGDP_ALB212,WestEurasia,Albania,Albanian,182
+SGDP,SGDP_Ale14,CentralAsiaSiberia,Russia,Tlingit,183
+SGDP,SGDP_Ale20,CentralAsiaSiberia,Russia,Aleut,184
+SGDP,SGDP_Ale22,CentralAsiaSiberia,Russia,Aleut,185
+SGDP,SGDP_Ale32,CentralAsiaSiberia,Russia,Tlingit,186
+SGDP,SGDP_Armenian222,WestEurasia,Armenia,Armenian,187
+SGDP,SGDP_Ayodo430C,Africa,Kenya,Luo,188
+SGDP,SGDP_Ayodo502C,Africa,Kenya,Luo,189
+SGDP,SGDP_Ayodo81S,Africa,Kenya,Somali,190
+SGDP,SGDP_B11,SouthAsia,India,Brahmin,191
+SGDP,SGDP_B17,SouthAsia,India,Brahmin,192
+SGDP,SGDP_Bu16,EastAsia,Myanmar,Burmese,193
+SGDP,SGDP_Bu5,EastAsia,Myanmar,Burmese,194
+SGDP,SGDP_BulgarianB4,WestEurasia,Bulgaria,Bulgarian,195
+SGDP,SGDP_BulgarianC1,WestEurasia,Bulgaria,Bulgarian,196
+SGDP,SGDP_CHI-007,EastAsia,Thailand,Thai,197
+SGDP,SGDP_CHI-034,EastAsia,Thailand,Thai,198
+SGDP,SGDP_DNK11,Africa,Sudan,Dinka,199
+SGDP,SGDP_DNK5,Africa,Sudan,Dinka,200
+SGDP,SGDP_DNK7,Africa,Sudan,Dinka,201
+SGDP,SGDP_Dus16,Oceania,Brunei,Dusun,202
+SGDP,SGDP_Dus22,Oceania,Brunei,Dusun,203
+SGDP,SGDP_Esk29,CentralAsiaSiberia,Russia,Eskimo_Chaplin,204
+SGDP,SGDP_Est375,WestEurasia,Estonia,Estonian,205
+SGDP,SGDP_Est400,WestEurasia,Estonia,Estonian,206
+1KG,SGDP_HG00126,GBR,British in England and Scotland,NaN,207
+1KG,SGDP_HG00128,GBR,British in England and Scotland,NaN,208
+1KG,SGDP_HG00174,FIN,Finnish in Finland,NaN,209
+1KG,SGDP_HG00190,FIN,Finnish in Finland,NaN,210
+1KG,SGDP_HG00360,FIN,Finnish in Finland,NaN,211
+1KG,SGDP_HG01503,IBS,Iberian populations in Spain,NaN,212
+1KG,SGDP_HG01504,IBS,Iberian populations in Spain,NaN,213
+1KG,SGDP_HG01600,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,214
+1KG,SGDP_HG01846,KHV,"Kinh in Ho Chi Minh City, Vietnam",NaN,215
+1KG,SGDP_HG02464,GWD,"Gambian in Western Division, The Gambia",NaN,216
+1KG,SGDP_HG02494,PJL,"Punjabi in Lahore,Pakistan",NaN,217
+1KG,SGDP_HG02574,GWD,"Gambian in Western Division, The Gambia",NaN,218
+1KG,SGDP_HG02724,PJL,"Punjabi in Lahore,Pakistan",NaN,219
+1KG,SGDP_HG02783,PJL,"Punjabi in Lahore,Pakistan",NaN,220
+1KG,SGDP_HG02790,PJL,"Punjabi in Lahore,Pakistan",NaN,221
+1KG,SGDP_HG02943,ESN,Esan in Nigeria,NaN,222
+1KG,SGDP_HG03006,BEB,Bengali in Bangladesh,NaN,223
+1KG,SGDP_HG03007,BEB,Bengali in Bangladesh,NaN,224
+1KG,SGDP_HG03078,MSL,Mende in Sierra Leone,NaN,225
+1KG,SGDP_HG03085,MSL,Mende in Sierra Leone,NaN,226
+1KG,SGDP_HG03100,ESN,Esan in Nigeria,NaN,227
+SGDP,SGDP_HGDP00019,SouthAsia,Pakistan,Brahui,228
+SGDP,SGDP_HGDP00027,SouthAsia,Pakistan,Brahui,229
+SGDP,SGDP_HGDP00090,SouthAsia,Pakistan,Balochi,230
+SGDP,SGDP_HGDP00124,SouthAsia,Pakistan,Hazara,231
+SGDP,SGDP_HGDP00125,SouthAsia,Pakistan,Hazara,232
+SGDP,SGDP_HGDP00157,SouthAsia,Pakistan,Makrani,233
+SGDP,SGDP_HGDP00160,SouthAsia,Pakistan,Makrani,234
+SGDP,SGDP_HGDP00195,SouthAsia,Pakistan,Sindhi,235
+SGDP,SGDP_HGDP00208,SouthAsia,Pakistan,Sindhi,236
+SGDP,SGDP_HGDP00216,SouthAsia,Pakistan,Pathan,237
+SGDP,SGDP_HGDP00232,SouthAsia,Pakistan,Pathan,238
+SGDP,SGDP_HGDP00286,SouthAsia,Pakistan,Kalash,239
+SGDP,SGDP_HGDP00328,SouthAsia,Pakistan,Kalash,240
+SGDP,SGDP_HGDP00338,SouthAsia,Pakistan,Burusho,241
+SGDP,SGDP_HGDP00428,SouthAsia,Pakistan,Burusho,242
+SGDP,SGDP_HGDP00449,Africa,Congo,Mbuti,243
+SGDP,SGDP_HGDP00457,Africa,Central African Republic,Biaka,244
+SGDP,SGDP_HGDP00461,Africa,Central African Republic,Biaka,245
+SGDP,SGDP_HGDP00474,Africa,Congo,Mbuti,246
+SGDP,SGDP_HGDP00476,Africa,Congo,Mbuti,247
+SGDP,SGDP_HGDP00526,WestEurasia,France,French,248
+SGDP,SGDP_HGDP00530,WestEurasia,France,French,249
+SGDP,SGDP_HGDP00540,Oceania,PapuaNewGuinea,Papuan,250
+SGDP,SGDP_HGDP00541,Oceania,PapuaNewGuinea,Papuan,251
+SGDP,SGDP_HGDP00543,Oceania,PapuaNewGuinea,Papuan,252
+SGDP,SGDP_HGDP00545,Oceania,PapuaNewGuinea,Papuan,253
+SGDP,SGDP_HGDP00547,Oceania,PapuaNewGuinea,Papuan,254
+SGDP,SGDP_HGDP00548,Oceania,PapuaNewGuinea,Papuan,255
+SGDP,SGDP_HGDP00549,Oceania,PapuaNewGuinea,Papuan,256
+SGDP,SGDP_HGDP00550,Oceania,PapuaNewGuinea,Papuan,257
+SGDP,SGDP_HGDP00551,Oceania,PapuaNewGuinea,Papuan,258
+SGDP,SGDP_HGDP00552,Oceania,PapuaNewGuinea,Papuan,259
+SGDP,SGDP_HGDP00553,Oceania,PapuaNewGuinea,Papuan,260
+SGDP,SGDP_HGDP00554,Oceania,PapuaNewGuinea,Papuan,261
+SGDP,SGDP_HGDP00555,Oceania,PapuaNewGuinea,Papuan,262
+SGDP,SGDP_HGDP00556,Oceania,PapuaNewGuinea,Papuan,263
+SGDP,SGDP_HGDP00569,WestEurasia,Israel(Carmel),Druze,264
+SGDP,SGDP_HGDP00597,WestEurasia,Israel(Carmel),Druze,265
+SGDP,SGDP_HGDP00616,WestEurasia,Israel(Negev),BedouinB,266
+SGDP,SGDP_HGDP00650,WestEurasia,Israel(Negev),BedouinB,267
+SGDP,SGDP_HGDP00656,Oceania,PapuaNewGuinea,Bougainville,268
+SGDP,SGDP_HGDP00660,Oceania,PapuaNewGuinea,Bougainville,269
+SGDP,SGDP_HGDP00702,America,Colombia,Piapoco,270
+SGDP,SGDP_HGDP00706,America,Colombia,Piapoco,271
+SGDP,SGDP_HGDP00713,EastAsia,Cambodia,Cambodian,272
+SGDP,SGDP_HGDP00717,EastAsia,Cambodia,Cambodian,273
+SGDP,SGDP_HGDP00722,WestEurasia,Israel(Central),Palestinian,274
+SGDP,SGDP_HGDP00725,WestEurasia,Israel(Central),Palestinian,275
+SGDP,SGDP_HGDP00737,WestEurasia,Israel(Central),Palestinian,276
+SGDP,SGDP_HGDP00749,EastAsia,Japan,Japanese,277
+SGDP,SGDP_HGDP00773,EastAsia,Japan,Japanese,278
+SGDP,SGDP_HGDP00783,EastAsia,China,Han,279
+SGDP,SGDP_HGDP00785,EastAsia,China,Han,280
+SGDP,SGDP_HGDP00796,WestEurasia,OrkneyIslands,Orcadian,281
+SGDP,SGDP_HGDP00798,WestEurasia,OrkneyIslands,Orcadian,282
+SGDP,SGDP_HGDP00846,America,Brazil,Surui,283
+SGDP,SGDP_HGDP00852,America,Brazil,Surui,284
+SGDP,SGDP_HGDP00855,America,Mexico,Mayan,285
+SGDP,SGDP_HGDP00857,America,Mexico,Mayan,286
+SGDP,SGDP_HGDP00887,WestEurasia,Russia,Russian,287
+SGDP,SGDP_HGDP00903,WestEurasia,Russia,Russian,288
+SGDP,SGDP_HGDP00915,Africa,Senegal,Mandenka,289
+SGDP,SGDP_HGDP00928,Africa,Nigeria,Yoruba,290
+SGDP,SGDP_HGDP00932,Africa,Nigeria,Yoruba,291
+SGDP,SGDP_HGDP00951,CentralAsiaSiberia,Russia,Yakut,292
+SGDP,SGDP_HGDP00956,CentralAsiaSiberia,Russia,Yakut,293
+SGDP,SGDP_HGDP00987,Africa,Namibia,Ju_hoan_North,294
+SGDP,SGDP_HGDP00991,Africa,Namibia,Ju_hoan_North,295
+SGDP,SGDP_HGDP01012,America,Brazil,Karitiana,296
+SGDP,SGDP_HGDP01018,America,Brazil,Karitiana,297
+SGDP,SGDP_HGDP01028,Africa,BotswanaOrNamibia,BantuHerero,298
+SGDP,SGDP_HGDP01030,Africa,BotswanaOrNamibia,BantuTswana,299
+SGDP,SGDP_HGDP01032,Africa,Namibia,Ju_hoan_North,300
+SGDP,SGDP_HGDP01034,Africa,BotswanaOrNamibia,BantuTswana,301
+SGDP,SGDP_HGDP01035,Africa,BotswanaOrNamibia,BantuHerero,302
+SGDP,SGDP_HGDP01044,America,Mexico,Pima,303
+SGDP,SGDP_HGDP01047,America,Mexico,Pima,304
+SGDP,SGDP_HGDP01078,WestEurasia,Italy(Sardinia),Sardinian,305
+SGDP,SGDP_HGDP01079,WestEurasia,Italy(Sardinia),Sardinian,306
+SGDP,SGDP_HGDP01095,EastAsia,China,Tujia,307
+SGDP,SGDP_HGDP01098,EastAsia,China,Tujia,308
+SGDP,SGDP_HGDP01153,WestEurasia,Italy(Bergamo),Bergamo,309
+SGDP,SGDP_HGDP01163,WestEurasia,Italy(Tuscany),Tuscan,310
+SGDP,SGDP_HGDP01168,WestEurasia,Italy(Tuscany),Tuscan,311
+SGDP,SGDP_HGDP01172,WestEurasia,Italy(Bergamo),Bergamo,312
+SGDP,SGDP_HGDP01179,EastAsia,China,Yi,313
+SGDP,SGDP_HGDP01188,EastAsia,China,Yi,314
+SGDP,SGDP_HGDP01191,EastAsia,China,Miao,315
+SGDP,SGDP_HGDP01198,EastAsia,China,Miao,316
+SGDP,SGDP_HGDP01199,Africa,Senegal,Mandenka,317
+SGDP,SGDP_HGDP01203,EastAsia,China,Oroqen,318
+SGDP,SGDP_HGDP01211,EastAsia,China,Oroqen,319
+SGDP,SGDP_HGDP01215,EastAsia,China,Daur,320
+SGDP,SGDP_HGDP01217,EastAsia,China,Daur,321
+SGDP,SGDP_HGDP01223,CentralAsiaSiberia,China,Mongola,322
+SGDP,SGDP_HGDP01228,CentralAsiaSiberia,China,Mongola,323
+SGDP,SGDP_HGDP01240,EastAsia,China,Hezhen,324
+SGDP,SGDP_HGDP01242,EastAsia,China,Hezhen,325
+SGDP,SGDP_HGDP01246,EastAsia,China,Xibo,326
+SGDP,SGDP_HGDP01250,EastAsia,China,Xibo,327
+SGDP,SGDP_HGDP01253,Africa,Algeria,Mozabite,328
+SGDP,SGDP_HGDP01274,Africa,Algeria,Mozabite,329
+SGDP,SGDP_HGDP01297,EastAsia,China,Uygur,330
+SGDP,SGDP_HGDP01306,EastAsia,China,Uygur,331
+SGDP,SGDP_HGDP01312,EastAsia,China,Dai,332
+SGDP,SGDP_HGDP01314,EastAsia,China,Dai,333
+SGDP,SGDP_HGDP01315,EastAsia,China,Dai,334
+SGDP,SGDP_HGDP01320,EastAsia,China,Lahu,335
+SGDP,SGDP_HGDP01323,EastAsia,China,Lahu,336
+SGDP,SGDP_HGDP01333,EastAsia,China,She,337
+SGDP,SGDP_HGDP01335,EastAsia,China,She,338
+SGDP,SGDP_HGDP01338,EastAsia,China,Naxi,339
+SGDP,SGDP_HGDP01344,NaN,NaN,NaN,340
+SGDP,SGDP_HGDP01345,EastAsia,China,Naxi,341
+SGDP,SGDP_HGDP01350,EastAsia,China,Tu,342
+SGDP,SGDP_HGDP01355,EastAsia,China,Tu,343
+SGDP,SGDP_HGDP01364,WestEurasia,France,Basque,344
+SGDP,SGDP_HGDP01365,WestEurasia,France,Basque,345
+SGDP,SGDP_HGDP01401,WestEurasia,Russia(Caucasus),Adygei,346
+SGDP,SGDP_HGDP01402,WestEurasia,Russia(Caucasus),Adygei,347
+SGDP,SGDP_HGDP01414,Africa,Kenya,BantuKenya,348
+SGDP,SGDP_HGDP01417,Africa,Kenya,BantuKenya,349
+SGDP,SGDP_I1,SouthAsia,India,Irula,350
+SGDP,SGDP_I3,SouthAsia,India,Irula,351
+SGDP,SGDP_IHW9118,Oceania,Australia,Australian,352
+SGDP,SGDP_IHW9193,Oceania,Australia,Australian,353
+SGDP,SGDP_Igor20,Oceania,Philippines,Igorot,354
+SGDP,SGDP_Igor21,Oceania,Philippines,Igorot,355
+SGDP,SGDP_Jordan214,WestEurasia,Jordan,Jordanian,356
+SGDP,SGDP_Jordan445,WestEurasia,Jordan,Jordanian,357
+SGDP,SGDP_Jordan603,WestEurasia,Jordan,Jordanian,358
+SGDP,SGDP_K-15,SouthAsia,Nepal,Kusunda,359
+SGDP,SGDP_K-2,SouthAsia,Nepal,Kusunda,360
+SGDP,SGDP_K1,SouthAsia,India,Kapu,361
+SGDP,SGDP_K4,SouthAsia,India,Kapu,362
+SGDP,SGDP_KD4,SouthAsia,India,Khonda_Dora,363
+SGDP,SGDP_Kor82,CentralAsiaSiberia,Russia,Itelman,364
+SGDP,SGDP_M13,SouthAsia,India,Madiga,365
+SGDP,SGDP_M4,SouthAsia,India,Madiga,366
+SGDP,SGDP_ML2,SouthAsia,India,Mala,367
+SGDP,SGDP_ML3,SouthAsia,India,Mala,368
+SGDP,SGDP_Mansi41,CentralAsiaSiberia,Russia,Mansi,369
+SGDP,SGDP_Mansi79,CentralAsiaSiberia,Russia,Mansi,370
+SGDP,SGDP_Mixa0099,America,Mexico,Mixtec,371
+SGDP,SGDP_NA00726,EastAsia,Korea,Korean,372
+SGDP,SGDP_NA11200,America,Peru,Quechua,373
+SGDP,SGDP_NA11201,America,Peru,Quechua,374
+SGDP,SGDP_NA13604,EastAsia,Taiwan,Atayal,375
+SGDP,SGDP_NA13607,EastAsia,Taiwan,Ami,376
+SGDP,SGDP_NA13616,EastAsia,Taiwan,Ami,377
+SGDP,SGDP_NA15202,WestEurasia,Hungary,Hungarian,378
+SGDP,SGDP_NA15203,WestEurasia,Hungary,Hungarian,379
+SGDP,SGDP_NA15728,WestEurasia,Czechoslovia(pre1989),Czech,380
+SGDP,SGDP_NA15761,WestEurasia,Iceland,Icelandic,381
+SGDP,SGDP_NA15763,WestEurasia,Iceland,Icelandic,382
+SGDP,SGDP_NA17374,WestEurasia,Greece,Greek,383
+SGDP,SGDP_NA17377,WestEurasia,Greece,Greek,384
+SGDP,SGDP_NA17385,Oceania,USA,Hawaiian,385
+SGDP,SGDP_NA17386,Oceania,New Zealand,Maori,386
+SGDP,SGDP_NA18940,EastAsia,Japan,Japanese,387
+SGDP,SGDP_NA19023,Africa,Kenya,Luhya,388
+SGDP,SGDP_NA19044,Africa,Kenya,Luhya,389
+SGDP,SGDP_NA21490,Africa,Kenya,Masai,390
+SGDP,SGDP_NA21581,Africa,Kenya,Masai,391
+SGDP,SGDP_ND15865,WestEurasia,Poland,Polish,392
+SGDP,SGDP_ND19394,EastAsia,Korea,Korean,393
+SGDP,SGDP_NOR111,WestEurasia,Norway,Norwegian,394
+SGDP,SGDP_Nesk22,CentralAsiaSiberia,Russia,Eskimo_Naukan,395
+SGDP,SGDP_Nesk25,CentralAsiaSiberia,Russia,Eskimo_Naukan,396
+SGDP,SGDP_Nlk1,CentralAsiaSiberia,Russia,Even,397
+SGDP,SGDP_Nlk18,CentralAsiaSiberia,Russia,Even,398
+SGDP,SGDP_Nlk3,CentralAsiaSiberia,Russia,Even,399
+SGDP,SGDP_NorthOssetia12,WestEurasia,Russia,North_Ossetian,400
+SGDP,SGDP_NorthOssetia5,WestEurasia,Russia,North_Ossetian,401
+SGDP,SGDP_Peru60,America,Peru,Quechua,402
+SGDP,SGDP_R3,SouthAsia,India,Relli,403
+SGDP,SGDP_R6,SouthAsia,India,Relli,404
+SGDP,SGDP_SA0342,Africa,SouthAfrica,Khomani_San,405
+SGDP,SGDP_SA0722,Africa,SouthAfrica,Khomani_San,406
+SGDP,SGDP_SAH31,Africa,Western Sahara (Morocco),Saharawi,407
+SGDP,SGDP_SAH41,Africa,Western Sahara (Morocco),Saharawi,408
+SGDP,SGDP_Sam02,WestEurasia,Israel,Samaritan,409
+SGDP,SGDP_Sir19,CentralAsiaSiberia,Russia,Chukchi,410
+SGDP,SGDP_Sir26,CentralAsiaSiberia,Russia,Eskimo_Sireniki,411
+SGDP,SGDP_Sir40,CentralAsiaSiberia,Russia,Eskimo_Sireniki,412
+SGDP,SGDP_TGBS21,America,Argentina,Chane,413
+SGDP,SGDP_Tuba19,CentralAsiaSiberia,Russia,Tubalar,414
+SGDP,SGDP_Tuba9,CentralAsiaSiberia,Russia,Tubalar,415
+SGDP,SGDP_Ul31,CentralAsiaSiberia,Russia,Ulchi,416
+SGDP,SGDP_Ul5,CentralAsiaSiberia,Russia,Ulchi,417
+SGDP,SGDP_Utsa21,WestEurasia,Finland,Saami,418
+SGDP,SGDP_Utsa22,WestEurasia,Finland,Saami,419
+SGDP,SGDP_Y4,SouthAsia,India,Yadava,420
+SGDP,SGDP_Y8,SouthAsia,India,Yadava,421
+SGDP,SGDP_abh100,WestEurasia,Russia,Abkhasian,422
+SGDP,SGDP_abh107,WestEurasia,Abkhazia,Abkhasian,423
+SGDP,SGDP_altai363p,CentralAsiaSiberia,Russia,Altaian,424
+SGDP,SGDP_armenia293,WestEurasia,Armenia,Armenian,425
+SGDP,SGDP_ch113,WestEurasia,Russia,Chechen,426
+SGDP,SGDP_iran11,WestEurasia,Iran,Iranian,427
+SGDP,SGDP_iran17,WestEurasia,Iran,Iranian,428
+SGDP,SGDP_lez42,WestEurasia,Russia,Lezgin,429
+SGDP,SGDP_lez49,WestEurasia,Russia,Lezgin,430
+SGDP,SGDP_mg27,WestEurasia,Georgia,Georgian,431
+SGDP,SGDP_mg31,WestEurasia,Georgia,Georgian,432
+SGDP,SGDP_mixa0105,America,Mexico,Mixtec,433
+SGDP,SGDP_mixe0002,America,Mexico,Mixe,434
+SGDP,SGDP_mixe0042,America,Mexico,Mixe,435
+SGDP,SGDP_tdj409_shugnan,WestEurasia,Tajikistan,Tajik,436
+SGDP,SGDP_tdj430_shugnan,WestEurasia,Tajikistan,Tajik,437
+SGDP,SGDP_zapo0098,America,Mexico,Zapotec,438
+SGDP,SGDP_zapo0099,America,Mexico,Zapotec,439
