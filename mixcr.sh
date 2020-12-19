@@ -29,9 +29,9 @@ fi
 -s hsa \
 --starting-material dna \
 --report ${sample_id}_analysis.report \
---align "-t 12" \
+-t 12 \
 ${sample_id}.R1.fq.gz ${sample_id}.R2.fq.gz \
-${sample_id}_alignments.vdjca
+${sample_id}_mixcr_out
 
 rm ${sample_id}.R1.fq.gz
 rm ${sample_id}.R2.fq.gz
