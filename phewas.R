@@ -1,7 +1,7 @@
 library(data.table)
 library(tidyverse)
 library(pbmcapply)
-library(qqman)
+library(ggrepel)
 
 setwd("~/Downloads/phewas/")
 
@@ -25,7 +25,7 @@ get_phewas <- function(eas_phewas, row_index, download_index = TRUE) {
                 "se_AMR",	"se_CSA",	"se_EAS",	"se_EUR",	"se_MID",	"pval_AFR",	"pval_AMR",	"pval_CSA",	
                 "pval_EAS",	"pval_EUR",	"pval_MID",	"low_confidence_AFR",	"low_confidence_AMR",	
                 "low_confidence_CSA",	"low_confidence_EAS",	"low_confidence_EUR",	"low_confidence_MID")
-    tabix_cmd <- paste("tabix", url, "14:106226552-106226552")
+    tabix_cmd <- paste("tabix", url, "14:106014935-106014935")
     phewas_line <- fread(cmd = tabix_cmd)
     if (nrow(phewas_line) == 0) {
       phewas_line <- setNames(data.table(matrix(nrow = 0, ncol = length(header))), header) %>%
@@ -43,9 +43,26 @@ get_phewas <- function(eas_phewas, row_index, download_index = TRUE) {
   })
 }
 
+
 phewas_results <- rbindlist(pbmclapply(1:nrow(eas_phewas), 
-                                       function(x) suppressWarnings(get_phewas(eas_phewas, x, download_index = FALSE)), 
+                                       function(x) suppressWarnings(get_phewas(eas_phewas, x, download_index = TRUE)), 
                                        mc.cores = getOption("mc.cores", 6L)))
 
 setorder(phewas_results, pval_EAS)
-qq(phewas_results$pval_EAS)
+
+phewas_results[, p_exp := seq(from = 1 / nrow(phewas_results), to = 1, by = 1 / nrow(phewas_results))]
+
+ggplot(data = phewas_results, aes(x = -log10(p_exp), y = -log10(pval_EAS))) +
+  geom_abline(slope = 1, color = "lightgray") +
+  geom_point() +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  geom_text_repel(data = phewas_results[pval_EAS < 0.025], 
+             aes(x = -log10(p_exp), y = -log10(pval_EAS), 
+                 label = description), size = 3) +
+  labs(y = expression(observed-log[10](p)),
+       x = expression(expected-log[10](p)))
+
+
+
+
