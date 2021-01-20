@@ -336,3 +336,60 @@ table1 <- selscan_all[, c("ID", "INFO", "lle_ratio", "p_adj", "target_pop", "ran
   setnames(., c("SV ID", "SV length", "LRS", "Adj. p-value", "Ancestry component", "Affected gene(s)"))
 
 formattable(table1, digits = 3, format = "markdown")
+
+
+############################################################################
+
+# plot locus-zoom style local manhattan plot
+
+get_locuszoom <- function(sv_id, pop_number, selscan_results_in, window_size) {
+  
+  selscan_subset <- selscan_results_in[ID == sv_id & target_pop == pop_number] %>%
+    .[, 1:16] %>%
+    .[, is_sv := TRUE] %>%
+    setnames(., "#CHROM", "chr") %>%
+    .[, chr := gsub("chr", "", chr)] %>%
+    setnames(., "POS", "pos")
+  chrom <- selscan_subset$chr
+  position <- selscan_subset$pos
+  selscan_snp <- read_snp(pop_number + 1, chrom) %>%
+    .[pos > (position - window_size / 2) & pos < (position + window_size / 2)] %>%
+    .[, is_sv := FALSE] %>%
+    .[, -c("ac", "an", "af", "maf")] %>%
+    .[, INFO := 1] %>%
+    setnames(., "lle-ratio", "lle_ratio")
+  
+  keep_col <- colnames(selscan_snp)
+  
+  selscan_local <- rbind(selscan_subset[, ..keep_col], selscan_snp) %>%
+    .[, locus_title := paste0("Ancestry component ", pop_number + 1)]
+  
+  return(selscan_local)
+}
+
+
+locus_0 <- get_locuszoom("27407_HG02106_ins", 0, selscan_res, 4e7)
+locus_1 <- get_locuszoom("22237_HG02059_ins", 1, selscan_res, 1e6)
+locus_2 <- get_locuszoom("32021_HG00268_ins", 2, selscan_res, 2e6)
+locus_3 <- get_locuszoom("22065_HG02106_del", 3, selscan_res, 3e6)
+locus_4 <- get_locuszoom("21859_NA19240_ins", 4, selscan_res, 3e6)
+locus_5 <- get_locuszoom("22237_HG02059_ins", 5, selscan_res, 1e6)
+locus_6 <- get_locuszoom("10085_HG00268_del", 6, selscan_res, 1e6)
+locus_7 <- get_locuszoom("18075_HG00268_del", 7, selscan_res, 1e6)
+
+locuszoom <- rbind(locus_0, locus_1, locus_2, locus_3, locus_4, locus_5, locus_6, locus_7)
+locuszoom <- rbind(locuszoom[lle_ratio == 0][sample(1:nrow(locuszoom[lle_ratio == 0]), 1e5)],
+                   locuszoom[lle_ratio != 0]) # sparse the points at 0 for plotting efficiency
+
+ggplot(data = locuszoom[is_sv == FALSE], aes(x = pos / 1000000, y = lle_ratio)) + 
+  scale_color_manual(values = "black") +
+  geom_point(size = 0.5) +
+  geom_point(data = locuszoom[is_sv == TRUE], color = "red", size = 2) +
+  geom_text_repel(data = locuszoom[is_sv == TRUE], aes(label = ID), 
+                  color = "black", size = 2) +
+  ylab("Likelihood ratio statistic") +
+  xlab("Position (Mbp)") +
+  theme_bw() +
+  theme(legend.position = "none", 
+        panel.grid = element_blank()) +
+  facet_wrap(~ locus_title, scales = "free")
