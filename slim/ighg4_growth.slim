@@ -1,0 +1,102 @@
+// Keywords: conditional sweep
+initialize() {
+	initializeMutationRate(0);
+	initializeMutationType("m1", 0.5, "f", 0.0);
+	initializeMutationType("m2", 1.0, "f", 0.0);  // introduced mutation
+	initializeGenomicElementType("g1", m1, 1.0);
+	initializeGenomicElement(g1, 0, 0);
+	initializeRecombinationRate(1e-8);
+}
+fitness(m2, p1) {
+	if (s_onset > 100) { 
+		return 1.0;
+	} else {
+		return (1 + s_coef);	
+	}
+}
+fitness(m2, p2) {
+	if (s_onset > 1348) { 
+		return 1.0;
+	} else {
+		return (1 + s_coef);	
+	}
+}
+fitness(m2, p3) {
+	if (s_onset > 1348) { 
+		return 1.0;
+	} else {
+		return (1 + s_coef);	
+	}
+}
+fitness(m2, p5) {
+	if (s_onset > 1627) { 
+		return 1.0;
+	} else {
+		return (1 + s_coef);	
+	}
+}
+1 {
+	// reschedule selection onset
+	sim.rescheduleScriptBlock(s1, start=s_onset, end=s_onset); 
+	// save this run's identifier, used to save and restore
+	defineConstant("simID", getSeed());
+	sim.addSubpop("p1", 2831); // ancestral non-African population (Nb)
+}
+1 late() {
+	// introduce the sweep mutation
+	init_count = asInteger(round(init_freq * (2831 * 2)));
+	target = sample(p1.genomes, init_count);
+	target.addNewDrawnMutation(m2, 0);
+	//catn("\nInitial: ");
+	print(sim.mutationFrequencies(p1, sim.mutationsOfType(m2)));
+	mut = sim.mutationsOfType(m2);
+	mut.setSelectionCoeff(0.0);
+}
+100 late() {
+	sim.addSubpopSplit("p2", p1.individualCount, p1); // p2 = Asian pops (Nas)
+	p1.setSubpopulationSize(2512); // Neu
+}
+101: {
+	newSize = asInteger(p1.individualCount * 1.00125); // allow population growth
+	p1.setSubpopulationSize(newSize);
+	newSize = asInteger(p2.individualCount * 1.00125); // allow population growth
+	p2.setSubpopulationSize(newSize);
+}
+s1 101 late() {
+	mut = sim.mutationsOfType(m2);
+	mut.setSelectionCoeff(s_coef);
+}
+1348 late() {
+	sim.addSubpopSplit("p4", p2.individualCount, p2); // p4 = CDX / KHV; p2 = CHB / JPT
+}
+1349: {
+	newSize = asInteger(p4.individualCount * 1.00125); // allow population growth
+	p4.setSubpopulationSize(newSize);
+}
+1376 late(){
+	sim.addSubpopSplit("p3", p2.individualCount, p2); // p3 = CHB; p2 = JPT
+}
+1377: {
+	newSize = asInteger(p3.individualCount * 1.00125); // allow population growth
+	p3.setSubpopulationSize(newSize);
+}
+1627 late(){
+	sim.addSubpopSplit("p5", p4.individualCount, p4); // p5 = KHV; p4 = CDX
+}
+1628: {
+	newSize = asInteger(p5.individualCount * 1.00125); // allow population growth
+	p5.setSubpopulationSize(newSize);
+}
+1686 late() {
+	//catn("\nCEU: "); // MAF = 0.09
+	print(sim.mutationFrequencies(p1, sim.mutationsOfType(m2)));
+	//catn("\nJPT: "); // MAF = 0.06
+	print(sim.mutationFrequencies(p2, sim.mutationsOfType(m2)));
+	//catn("\nCHB: "); // MAF = 0.27
+	print(sim.mutationFrequencies(p3, sim.mutationsOfType(m2)));
+	//catn("\nCDX: "); // MAF = 0.88
+	print(sim.mutationFrequencies(p4, sim.mutationsOfType(m2)));
+	//catn("\nKHV: "); // MAF = 0.65
+	print(sim.mutationFrequencies(p5, sim.mutationsOfType(m2)));
+	sim.simulationFinished();
+}
