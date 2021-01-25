@@ -150,6 +150,8 @@ selscan_res[, p_adj := p.adjust(p_nominal, method = "bonferroni")]
 selscan_res[, snp_perc_99.9 := snp_perc > 0.999]
 table(selscan_res$snp_perc_99.9)
 
+length(unique(selscan_res[snp_perc_99.9 == TRUE]$ID))
+
 ############################################################################
 
 setwd("/scratch/groups/rmccoy22/syan11/sv_selection/ohana")
