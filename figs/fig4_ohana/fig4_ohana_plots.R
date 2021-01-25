@@ -6,23 +6,32 @@ library(GenomicRanges)
 library(ggrastr)
 library(gplots)
 library(viridis)
+library(pbapply)
 library(pbmcapply)
 library(ggrepel)
 library(qvalue)
+library(rtracklayer)
+library(Gviz)
+library(biomaRt)
+library(cowplot)
+library(stringr)
 
 setwd("/scratch/groups/rmccoy22/syan11/sv_selection/ohana")
+try(detach("package:plyr", unload = TRUE), silent = TRUE)
 
 ############################################################################
+
+#system(cmd = "for i in {1..22}; do echo ${i}; zcat ~/work/syan11/sv_selection/ohana/k8/1KGP_SNP/vcfs/chr${i}.vcf.gz | grep -v ^# | cut -f8 | tr '=' '\t' | tr ';' '\t' | cut -f2,4 > ~/work/rmccoy22/sv_selection/pval/chr${i}_snp_af.txt ; done")
 
 ### Filter selscan results
 
 pbs_results <- fread("pbs_results.txt")
 gt_callrate <- fread("genotyping_callrate.txt")
 hwe_pvals <- fread("HWE_pvals.txt")
-all_pops_ld <- fread("/work-zfs/rmccoy22/syan11/sv_selection/snp_ld/all_pops_ld.txt") %>%
+all_pops_ld <- fread("/work-zfs/rmccoy22/syan11/sv_selection/snp_ld/all_pops_ld_20210114.txt") %>%
   .[, c("SV", "R2", "pop")]
 svs <- fread("paragraph_sv_lengths.vcf")
-afs <- fread(cmd = "zcat /work-zfs/rmccoy22/syan11/sv_selection/af_plink/eichlerSVs_af_allpops_folded.frq.strat.gz")
+afs <- fread(cmd = "zcat /scratch/groups/rmccoy22/rmccoy22/sv_selection/eichlerSVs_af_allpops_unfolded.frq.strat.gz")
 common_svs <- unique(afs[MAF > 0.05 & MAF < 0.95]$SNP) # common in any 1KGP population
 
 sv_freq <- afs %>%
@@ -33,7 +42,7 @@ sv_freq[, maf := as.numeric(NA)]
 sv_freq[af < 0.5, maf := af]
 sv_freq[af >= 0.5, maf := 1 - af]
 
-read_snp <- function(pop_number, chrom) {
+read_snp <- function(pop_number, chrom, minimal = FALSE) {
   
   snp_freq <- fread(paste0("/scratch/groups/rmccoy22/rmccoy22/sv_selection/pval/chr", chrom, "_snp_af.txt"), header = FALSE) %>%
     setnames(., c("ac", "an")) %>%
@@ -49,14 +58,17 @@ read_snp <- function(pop_number, chrom) {
     setnames(., c("chr", "ID", "drop", "pos")) %>%
     .[, -3, with = FALSE]
   selscan_snp <- cbind(snp_map, snp_freq, selscan_snp)
-  selscan_snp <- selscan_snp[step < 99 & `global-lle` > -1000] %>%
+  selscan_snp <- selscan_snp[`global-lle` > -1000] %>%
     setorder(., -`lle-ratio`)
+  
+  if (minimal == TRUE) {
+    selscan_snp <- selscan_snp[, c("ID", "af", "maf", "lle-ratio")]
+  }
   
   return(selscan_snp)
 }
 
 match_sv_snp_af <- function(selscan_snp, selscan_filt, multiple, maf_select) {
-  
   n_selection <- nrow(selscan_filt[maf_bin == maf_select]) * multiple
   
   snp_selection <- selscan_snp[maf_bin == maf_select] %>%
@@ -65,15 +77,18 @@ match_sv_snp_af <- function(selscan_snp, selscan_filt, multiple, maf_select) {
   return(snp_selection)  
 }
 
-get_lle_pval <- function(freq_matched_snps, selscan_filt, row_index) {
+get_lle_perc <- function(freq_matched_snps, selscan_filt, row_index) {
   row_subset <- selscan_filt[row_index,]
-  pval <- mean(freq_matched_snps$`lle-ratio` >= row_subset$`lle_ratio`)
-  return(pval)
+  perc <- mean(freq_matched_snps$`lle-ratio` < row_subset$`lle_ratio`)
+  return(perc)
 }
 
-filter_selscan <- function(p, common_svs_in, sv_freq_in) {
+filter_selscan <- function(p, common_svs_in, sv_freq_in, match_snp_p = FALSE) {
   selscan <- fread(paste0("k8/selscan/selscan_50_k8_p", p, ".out"))
-  selscan_svs <- cbind(svs, selscan)
+  
+  # restrict to autosomal SVs
+  selscan_svs <- cbind(svs, selscan) %>%
+    .[`#CHROM` %in% paste0("chr", 1:22)]
   
   # filter out SVs that violate HWE or have low callrate
   selscan_filt <- semi_join(selscan_svs,
@@ -87,9 +102,6 @@ filter_selscan <- function(p, common_svs_in, sv_freq_in) {
   # filter out SVs that are not locally common
   selscan_filt <- selscan_filt[ID %in% common_svs_in]
   
-  # filter out SVs where # of steps was >= 99
-  selscan_filt <- selscan_filt[step < 99]
-  
   # filter out SVs with extreme global LLE
   selscan_filt <- selscan_filt[`global-lle` > -1000]
   
@@ -100,63 +112,50 @@ filter_selscan <- function(p, common_svs_in, sv_freq_in) {
   setnames(sv_freq_in, "SNP", "ID", skip_absent = TRUE)
   selscan_filt <- merge(selscan_filt, sv_freq_in, by = "ID")
   
-  ### compute p-values by comparing to SNPs and small indels
-  
-  selscan_snp <- rbindlist(pblapply(c("1", "21", "22", "X"), function(x) read_snp(p + 1, x)))
-  
-  
-  ### match frequency distributions
-  
-  selscan_snp[, maf_bin := round(maf, 2)] %>%
-    setorder(., maf_bin)
-  
-  selscan_filt[, maf_bin := round(maf, 2)] %>%
-    setorder(., maf_bin)
-  
-  multiple <- floor(min(table(selscan_snp$maf_bin) / table(selscan_filt$maf_bin)))
-  print(multiple)
-  
-  freq_matched_snps <- rbindlist(lapply(unique(selscan_filt$maf_bin),  
-                                        function(x) match_sv_snp_af(selscan_snp, selscan_filt, multiple, x)))
-  
-  psnp <- pbmclapply(1:nrow(selscan_filt), 
-                      function(x) get_lle_pval(freq_matched_snps, selscan_filt, x), 
-                      mc.cores = getOption("mc.cores", 48)) %>%
-    unlist()
-  
-  selscan_filt[, p_snp := psnp]
+  if (match_snp_p == TRUE) {
+    ### compute percentile by comparing to SNPs and small indels
+    
+    # get chromosome 1 SNP data from same ancestry component
+    selscan_snp <- read_snp(p + 1, "1", minimal = FALSE)
+    
+    # match frequency distributions
+    selscan_snp[, maf_bin := round(maf, 2)] %>%
+      setorder(., maf_bin)
+    selscan_filt[, maf_bin := round(maf, 2)] %>%
+      setorder(., maf_bin)
+    multiple <- floor(min(table(selscan_snp$maf_bin) / table(selscan_filt$maf_bin)))
+    print(multiple)
+    freq_matched_snps <- rbindlist(lapply(unique(selscan_filt$maf_bin),
+                                          function(x) match_sv_snp_af(selscan_snp, selscan_filt, multiple, x)))
+    
+    snp_percentile <- pbmclapply(1:nrow(selscan_filt),
+                       function(x) get_lle_perc(freq_matched_snps, selscan_filt, x),
+                       mc.cores = getOption("mc.cores", 48)) %>%
+      unlist()
+    
+    selscan_filt[, snp_perc := snp_percentile]
+  }
   
   return(selscan_filt)
 }
 
-selscan_res <- rbindlist(pblapply(0:7, function(x) filter_selscan(x, common_svs, sv_freq))) %>%
+# snp-SV matching requires random sampling of SNPs, so set random seed
+set.seed(1)
+selscan_res <- rbindlist(pblapply(0:7, function(x) filter_selscan(x, common_svs, sv_freq, match_snp_p = TRUE))) %>%
   setorder(., -lle_ratio)
 
 selscan_res[, p_nominal := pchisq(lle_ratio, df = 1, lower.tail = FALSE)]
 selscan_res[, p_adj := p.adjust(p_nominal, method = "bonferroni")]
-selscan_res[, p_snp_adj := p.adjust(p_snp, method = "bonferroni")]
 
-
-############################################################################
-
-# plot top SV frequencies as a heatmap
-
-maf_matrix <- afs[SNP %in% selscan_res[p_snp_adj < 0.05]$ID] %>%
-  .[, c("SNP", "CLST", "MAF")] %>%
-  pivot_wider(., names_from = "CLST", values_from = MAF) %>%
-  as.data.table() %>%
-  as.matrix(rownames = 1)
-
-heatmap.2(maf_matrix, col = viridis(500), trace = "none",
-          key.xlab = "MAF", key.ylab = "", key.title = "",
-          density.info = "none",
-          margins = c(4, 12))
+selscan_res[, snp_perc_99.9 := snp_perc > 0.999]
+table(selscan_res$snp_perc_99.9)
 
 ############################################################################
+
+setwd("/scratch/groups/rmccoy22/syan11/sv_selection/ohana")
 
 ### annotations: LD with 1KGP SNPs, genes from gencode
 
-### LD with SNPs
 # add superpop ID columns to LD table
 afr <- c("YRI", "LWK", "GWD", "MSL", "ESN", "ASW", "ACB")
 amr <- c("MXL", "PUR", "CLM", "PEL")
@@ -173,6 +172,7 @@ get_superpops <- rbind(
   data.table(pop = eur, superpop = "EUR"),
   data.table(pop = sas, superpop = "SAS"))
 
+### LD with SNPs
 all_pops_ld <- merge(all_pops_ld, get_superpops, by = "pop")
 
 ### gene annotations from gencode
@@ -215,8 +215,8 @@ olaps_exons <- findOverlaps(vcf_gr, exons_gr)
 genic_svs <- unique(vcf_gr[queryHits(olaps)]$ID)
 exonic_svs <- unique(vcf_gr[queryHits(olaps_exons)]$ID)
 
-length(unique(selscan_res[p_adj < 0.05 & ID %in% genic_svs]$ID))
-length(unique(selscan_res[p_adj < 0.05 & ID %in% exonic_svs]$ID))
+length(unique(selscan_res[snp_perc_99.9 == TRUE & ID %in% genic_svs]$ID))
+length(unique(selscan_res[snp_perc_99.9 == TRUE & ID %in% exonic_svs]$ID))
 
 vcf_matched <- vcf_gr[queryHits(olaps)]
 mcols(vcf_matched) <- cbind.data.frame(mcols(vcf_matched),
@@ -258,9 +258,8 @@ selscan_res2 <- rbindlist(lapply(0:7, function(i) ld_genes_annot(selscan_res,
                                                                  ancestry_to_superpop[i + 1],
                                                                  i)))
 
-selscan_res2[p_adj > 0.05, genes_string := NA]
-
-length(unique(selscan_res2[p_adj < 0.05 & max_R2_in_superpop > 0.8]$ID))
+selscan_res2[rank > 15, genes_string := NA]
+length(unique(selscan_res2[snp_perc_99.9 == TRUE & max_R2_in_superpop > 0.8]$ID))
 
 ####
 
@@ -279,7 +278,8 @@ qtl[, qval := qvalue(beta_perm_p)$qvalues]
 
 selscan_res2[, is_eqtl := ID %in% unique(qtl[qval < 0.1]$sv_id)]
 
-length(unique(selscan_res2[p_adj < 0.05 & is_eqtl == TRUE]$ID))
+length(unique(selscan_res2[snp_perc_99.9 == TRUE & is_eqtl == TRUE]$ID))
+qtl[sv_id %in% unique(selscan_res2[snp_perc_99.9 == TRUE & is_eqtl == TRUE]$ID) & qval < 0.1]
 
 ############################################################################
 
@@ -287,15 +287,14 @@ length(unique(selscan_res2[p_adj < 0.05 & is_eqtl == TRUE]$ID))
 
 selscan_all <- selscan_res2
 
-# no R^2 coloring for SVs with low PBS
-selscan_all[p_adj > 0.05, max_R2_in_superpop := NA]
+# no R^2 coloring for SVs that are not significant
+selscan_all[p_adj > 0.01, max_R2_in_superpop := NA]
 
-# no gene annotation for SVs with low PBS
-# selscan_test[lle_ratio < 80, genes_string := ""]
+# no gene annotation for SVs that are not significant
 selscan_all[is.na(genes_string), genes_string := ""]
 
 save(selscan_all, file = "~/selscan_all.RData")
-load("~/Downloads/selscan_all.RData")
+load("~/selscan_all.RData")
 
 gg_color_hue <- function(n) {
   hues = seq(15, 375, length = n + 1)
@@ -307,7 +306,7 @@ p <- ggplot() +
   facet_wrap(~ ancestry_component, scales = "free", nrow = 1) +
   scale_x_log10() +
   theme_bw() +
-  xlab("\nSV length (bp)") + ylab("Log likelihood ratio\n") +
+  xlab("\nSV length (bp)") + ylab("Log-likelihood ratio statistic\n") +
   geom_point_rast(data = selscan_all, aes(x = abs(INFO), y = lle_ratio, color = max_R2_in_superpop), size = 0.5) +
   geom_text_repel(data = selscan_all[rank <= 15], 
                   aes(x = abs(INFO), y = lle_ratio, label = genes_string), 
@@ -329,3 +328,71 @@ for (i in seq_along(strips)) {
 
 plot(g)
 dev.off()
+
+###
+
+table1 <- selscan_all[, c("ID", "INFO", "lle_ratio", "p_adj", "target_pop", "rank", "genes_string")] %>%
+  setorder(., target_pop, rank) %>%
+  .[, target_pop := target_pop + 1] %>%
+  .[rank < 4] %>%
+  .[, rank := NULL] %>%
+  setnames(., c("SV ID", "SV length", "LRS", "Adj. p-value", "Ancestry component", "Affected gene(s)"))
+
+formattable(table1, digits = 3, format = "markdown")
+
+
+############################################################################
+
+# plot locus-zoom style local manhattan plot
+
+get_locuszoom <- function(sv_id, pop_number, selscan_results_in, window_size) {
+  
+  selscan_subset <- selscan_results_in[ID == sv_id & target_pop == pop_number] %>%
+    .[, 1:16] %>%
+    .[, is_sv := TRUE] %>%
+    setnames(., "#CHROM", "chr") %>%
+    .[, chr := gsub("chr", "", chr)] %>%
+    setnames(., "POS", "pos")
+  chrom <- selscan_subset$chr
+  position <- selscan_subset$pos
+  selscan_snp <- read_snp(pop_number + 1, chrom) %>%
+    .[pos > (position - window_size / 2) & pos < (position + window_size / 2)] %>%
+    .[, is_sv := FALSE] %>%
+    .[, -c("ac", "an", "af", "maf")] %>%
+    .[, INFO := 1] %>%
+    setnames(., "lle-ratio", "lle_ratio")
+  
+  keep_col <- colnames(selscan_snp)
+  
+  selscan_local <- rbind(selscan_subset[, ..keep_col], selscan_snp) %>%
+    .[, locus_title := paste0("Ancestry component ", pop_number + 1)]
+  
+  return(selscan_local)
+}
+
+
+locus_0 <- get_locuszoom("27407_HG02106_ins", 0, selscan_res, 4e7)
+locus_1 <- get_locuszoom("22237_HG02059_ins", 1, selscan_res, 1e6)
+locus_2 <- get_locuszoom("32021_HG00268_ins", 2, selscan_res, 2e6)
+locus_3 <- get_locuszoom("22065_HG02106_del", 3, selscan_res, 3e6)
+locus_4 <- get_locuszoom("21859_NA19240_ins", 4, selscan_res, 3e6)
+locus_5 <- get_locuszoom("22237_HG02059_ins", 5, selscan_res, 1e6)
+locus_6 <- get_locuszoom("10085_HG00268_del", 6, selscan_res, 1e6)
+locus_7 <- get_locuszoom("18075_HG00268_del", 7, selscan_res, 1e6)
+
+locuszoom <- rbind(locus_0, locus_1, locus_2, locus_3, locus_4, locus_5, locus_6, locus_7)
+locuszoom <- rbind(locuszoom[lle_ratio == 0][sample(1:nrow(locuszoom[lle_ratio == 0]), 1e5)],
+                   locuszoom[lle_ratio != 0]) # sparse the points at 0 for plotting efficiency
+
+ggplot(data = locuszoom[is_sv == FALSE], aes(x = pos / 1000000, y = lle_ratio)) + 
+  scale_color_manual(values = "black") +
+  geom_point(size = 0.5) +
+  geom_point(data = locuszoom[is_sv == TRUE], color = "red", size = 2) +
+  geom_text_repel(data = locuszoom[is_sv == TRUE], aes(label = ID), 
+                  color = "black", size = 2) +
+  ylab("Likelihood ratio statistic") +
+  xlab("Position (Mbp)") +
+  theme_bw() +
+  theme(legend.position = "none", 
+        panel.grid = element_blank()) +
+  facet_wrap(~ locus_title, scales = "free")
