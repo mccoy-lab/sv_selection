@@ -398,3 +398,230 @@ ggplot(data = locuszoom[is_sv == FALSE], aes(x = pos / 1000000, y = lle_ratio)) 
   theme(legend.position = "none", 
         panel.grid = element_blank()) +
   facet_wrap(~ locus_title, scales = "free")
+
+############################################################################
+
+# local investigation of the IGHG4 region
+
+ighg4 <- get_locuszoom("22237_HG02059_ins", 1, selscan_res, 1e6)
+
+check_neand_vcf <- function(locus, row_index) {
+  tryCatch({
+    snp <- locus[row_index]
+    ref <- strsplit(snp$ID, "_")[[1]][3]
+    alt <- strsplit(snp$ID, "_")[[1]][4]
+    if (nchar(ref) != 1 || nchar(alt) != 1) {
+      return(NA)
+    }
+    cmd <- paste("/home-net/home-4/rmccoy22@jhu.edu/code/htslib-1.11/tabix",
+                 paste0("/scratch/groups/rmccoy22/rmccoy22/sv_selection/neand/AltaiNea.hg19_1000g.", snp$chr, ".mod.vcf.gz"),
+                 paste0(snp$chr, ":", snp$hg19_pos, "-", snp$hg19_pos))
+    test <- strsplit(system(command = cmd, intern = TRUE), "\t")
+    if (test[[1]][5] == alt & (grepl("^1/1", test[[1]][10]) | (grepl("^0/1", test[[1]][10])))) {
+      return(TRUE)
+    } else {
+      return(FALSE)
+    }
+  }, error = function(error_condition) {
+    return(FALSE)
+  })
+}
+
+check_archaic_bam <- function(locus, row_index, archaic) {
+  tryCatch({
+    snp <- locus[row_index]
+    ref <- strsplit(snp$ID, "_")[[1]][3]
+    alt <- strsplit(snp$ID, "_")[[1]][4]
+    chrom <- unique(locus$chr)
+    if (nchar(ref) != 1 || nchar(alt) != 1) {
+      return(NA)
+    }
+    if (archaic == "altai") {
+      cmd <- paste(paste0("/home-net/home-4/rmccoy22@jhu.edu/code/samtools-1.11/samtools mpileup AltaiNea.hg19_1000g.", chrom, ".dq.bam -r"),
+                   paste0(snp$chr, ":", snp$hg19_pos, "-", snp$hg19_pos))
+    } else if (archaic == "vindija") {
+      cmd <- paste(paste0("/home-net/home-4/rmccoy22@jhu.edu/code/samtools-1.11/samtools mpileup Vi33.19.chr", chrom, ".indel_realn.bam -r"),
+                   paste0(snp$chr, ":", snp$hg19_pos, "-", snp$hg19_pos))
+    } else if (archaic == "chagyrskaya") {
+      cmd <- paste(paste0("/home-net/home-4/rmccoy22@jhu.edu/code/samtools-1.11/samtools mpileup chr", chrom, ".rh.bam -r"),
+                   paste0(snp$chr, ":", snp$hg19_pos, "-", snp$hg19_pos))
+    } else if (archaic == "denisova") {
+      cmd <- paste("/home-net/home-4/rmccoy22@jhu.edu/code/samtools-1.11/samtools mpileup T_hg19_1000g.bam -r",
+                   paste0(snp$chr, ":", snp$hg19_pos, "-", snp$hg19_pos))
+    } else {
+      return(NA)
+    }
+    query_results <- strsplit(system(command = cmd, intern = TRUE), "\t")
+    if (str_count(toupper(query_results[[1]][5]), alt) > 1) {
+      return(TRUE)
+    } else {
+      return(FALSE)
+    }
+  }, error = function(error_condition) {
+    return(NA)
+  })
+}
+
+ighg4[, chrom := paste0("chr", chr)]
+ighg4[, index := .I]
+hg38_coords <- makeGRangesFromDataFrame(ighg4, 
+                                        seqnames.field = "chrom", 
+                                        start.field = "pos", 
+                                        end.field = "pos", 
+                                        ignore.strand = TRUE)
+
+chain <- import.chain("/scratch/groups/rmccoy22/rmccoy22/sv_selection/neand/hg38ToHg19.over.chain")
+hg19_coords <- liftOver(hg38_coords, chain) %>%
+  as.data.table() %>%
+  setnames(., "group", "index") %>%
+  setnames(., "start", "hg19_pos")
+
+ighg4 <- merge(ighg4, hg19_coords[, c("index", "hg19_pos")], by = "index")
+
+# download bam indices
+setwd("/scratch/groups/rmccoy22/rmccoy22/sv_selection/neand/")
+
+# get Altai BAM
+url <- "http://cdna.eva.mpg.de/neandertal/altai/AltaiNeandertal/bam/AltaiNea.hg19_1000g.14.dq.bam"
+download.file(url, destfile = basename(url))
+url <- "http://cdna.eva.mpg.de/neandertal/altai/AltaiNeandertal/bam/AltaiNea.hg19_1000g.14.dq.bam.bai"
+download.file(url, destfile = basename(url))
+
+# get Vindija BAM
+url <- "http://cdna.eva.mpg.de/neandertal/Vindija/bam/Vi33.19.chr14.indel_realn.bam"
+download.file(url, destfile = basename(url))
+url <- "http://cdna.eva.mpg.de/neandertal/Vindija/bam/Vi33.19.chr14.indel_realn.bam.bai"
+download.file(url, destfile = basename(url))
+
+# get Chagyrskaya BAM
+url <- "http://cdna.eva.mpg.de/neandertal/Chagyrskaya/bam/chr14.rh.bam"
+download.file(url, destfile = basename(url))
+url <- "http://cdna.eva.mpg.de/neandertal/Chagyrskaya/bam/chr14.rh.bam.bai"
+download.file(url, destfile = basename(url))
+
+# get Denisova BAM
+url <- "http://cdna.eva.mpg.de/denisova/alignments/T_hg19_1000g.bam"
+download.file(url, destfile = basename(url))
+url <- "http://cdna.eva.mpg.de/denisova/alignments/T_hg19_1000g.bam.bai"
+download.file(url, destfile = basename(url))
+
+# compare to each of the archaic genome alignments
+altai_match <- unlist(pbmclapply(1:nrow(ighg4), function(x) check_archaic_bam(ighg4, x, archaic = "altai"), 
+                                 mc.cores = getOption("mc.cores", 48)))
+
+vndja_match <- unlist(pbmclapply(1:nrow(ighg4), function(x) check_archaic_bam(ighg4, x, archaic = "vindija"), 
+                                 mc.cores = getOption("mc.cores", 48)))
+
+chgyr_match <- unlist(pbmclapply(1:nrow(ighg4), function(x) check_archaic_bam(ighg4, x, archaic = "chagyrskaya"), 
+                                 mc.cores = getOption("mc.cores", 48)))
+
+denis_match <- unlist(pbmclapply(1:nrow(ighg4), function(x) check_archaic_bam(ighg4, x, archaic = "denisova"), 
+                                 mc.cores = getOption("mc.cores", 48)))
+
+ighg4[, match_altai := altai_match]
+ighg4[, match_vndja := vndja_match]
+ighg4[, match_denis := denis_match]
+ighg4[, match_chgyr := chgyr_match]
+
+# get SPrime calls
+url <- "https://data.mendeley.com/public-files/datasets/y7hyt83vxr/files/f01566ae-0a9b-4847-b312-1af059fae3d1/file_downloaded"
+download.file(url, destfile = basename(url))
+system(paste("tar -zxvf", basename(url)))
+sprime <- fread("mendeley_data/CDX.chr14.ND_match")
+ighg4[, is_sprime_sig := hg19_pos %in% sprime$POS]
+
+min(ighg4[lle_ratio > 450]$pos)
+max(ighg4[lle_ratio > 450]$pos)
+
+############################################################################
+
+# generate haplostrips
+
+# /home-net/home-4/rmccoy22@jhu.edu/code/htslib-1.11/tabix -h http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20181203_biallelic_SNV/ALL.chr14.shapeit2_integrated_v1a.GRCh38.20181129.phased.vcf.gz chr14:105498101-105822843 > ighg4_1kgp.vcf
+
+haplostrips <- ighg4[lle_ratio > 450]
+
+kgp <- fread("ighg4_1kgp.vcf") %>%
+  .[POS %in% haplostrips$pos] %>%
+  .[, ID := paste0(`#CHROM`, "_", POS, "_", REF, "_", ALT)] %>%
+  .[, c(3, 10:(ncol(.) - 1)), with = FALSE] %>%
+  pivot_longer(!ID, names_to = "sample_id", values_to = "gt") %>%
+  as.data.table() %>%
+  .[, c("h1", "h2") := tstrsplit(gt, "|", fixed=TRUE)] %>%
+  .[, gt := NULL] %>%
+  pivot_longer(!c(ID, sample_id), names_to = "haplotype", values_to = "gt") %>%
+  as.data.table() %>%
+  rbind(., data.table(ID = haplostrips$ID, sample_id = "altai", haplotype = NA, gt = as.numeric(haplostrips$match_altai))) %>%
+  rbind(., data.table(ID = haplostrips$ID, sample_id = "vindija", haplotype = NA, gt = as.numeric(haplostrips$match_vndja))) %>%
+  rbind(., data.table(ID = haplostrips$ID, sample_id = "chagyrskaya", haplotype = NA, gt = as.numeric(haplostrips$match_chgyr))) %>%
+  rbind(., data.table(ID = haplostrips$ID, sample_id = "denisova", haplotype = NA, gt = as.numeric(haplostrips$match_denis)))
+
+sample_manifest <- fread("igsr_samples.tsv") %>%
+  .[, c(1, 4, 6)] %>%
+  setnames(., c("sample_id", "pop", "superpop"))
+
+kgp <- merge(kgp, sample_manifest, by = "sample_id", all.x = TRUE, allow.cartesian = TRUE)
+kgp[sample_id %in% c("altai", "vindija", "chagyrskaya", "denisova"), pop := "archaic"]
+kgp[sample_id %in% c("altai", "vindija", "chagyrskaya", "denisova"), superpop := "archaic"]
+
+kgp[, pos := sapply(strsplit(kgp$ID, "_"), "[[", 2)]
+setorder(kgp, pos)
+
+kgp$ID <- factor(kgp$ID, levels = kgp[!duplicated(pos)]$ID)
+
+kgp_keep <- kgp[pop %in% c("archaic", "CDX", "KHV", "CHB", "JPT", "CEU", "YRI") & !is.na(gt)] %>%
+  .[, hap_id := paste(sample_id, haplotype, sep = "_")]
+kgp_keep$pop <- factor(kgp_keep$pop, levels =  c("archaic", "CDX", "KHV", "CHB", "JPT", "CEU", "YRI"))
+
+sample_order_dt <- kgp_keep[, -"pos"] %>%
+  .[, -c("sample_id", "haplotype", "pop", "superpop")] %>%
+  pivot_wider(., names_from = hap_id, values_from = gt, values_fn = list(gt = unique)) %>%
+  as.data.table() %>%
+  .[, -"ID"] %>%
+  t(.)
+
+orig_order <- rownames(sample_order_dt)
+
+sample_order <- sample_order_dt %>%
+  dist(., method = "binary") %>%
+  hclust(.)
+
+new_order <- orig_order[sample_order$order]
+
+kgp_keep$hap_id <- factor(kgp_keep$hap_id, levels = new_order)
+
+keep_samples <- group_by(kgp_keep[pop != "archaic"], hap_id) %>%
+  summarize(., pop = unique(pop)) %>%
+  group_by(., pop) %>%
+  summarize(., keep_list = list(sample(hap_id, 30))) %>%
+  as.data.table() %>%
+  .$keep_list %>%
+  unlist()
+
+keep_samples <- c(as.character(keep_samples), "altai_NA", "chagyrskaya_NA", "denisova_NA", "vindija_NA")
+
+# haplostrips
+ggplot(data = kgp_keep[hap_id %in% keep_samples], aes(x = ID, y = sample_id, fill = gt)) + 
+  geom_tile() +
+  scale_fill_manual(values = c("white", "black")) +
+  theme(axis.text = element_blank(), 
+        legend.position = "none", 
+        panel.spacing = unit(0, "lines"),
+        panel.grid = element_blank(),
+        panel.background = element_blank()) +
+  facet_grid(pop ~ ., scales = "free") +
+  xlab("SNP") +
+  ylab("Sample") +
+  NULL
+
+# local LRS plot
+ggplot(data = ighg4[is_sv == FALSE & !is.na(match_chgyr)], aes(x = pos / 1000, y = lle_ratio, color = match_chgyr)) + 
+  scale_color_manual(values = c("grey55", "purple")) +
+  geom_point(size = 0.5) +
+  geom_point(data = ighg4[is_sv == TRUE & is.na(match_chgyr)], color = "red", size = 2) +
+  ylab("Likelihood ratio statistic") +
+  xlab("Position (Kbp)") +
+  theme_bw() +
+  theme(legend.position = "none", 
+        panel.grid = element_blank()) +
+  geom_hline(yintercept = 450, lty = "dashed", alpha = 0.2)                        
