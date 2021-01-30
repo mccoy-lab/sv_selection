@@ -1,8 +1,8 @@
 <!-- https://zenodo.org/record/4469976#.YBCgLXdKhs8 -->
 
-## Code associated with "Local adaptation and archaic introgression shape global diversity at human structural variant loci."
+## Code associated with "Local adaptation and archaic introgression shape global diversity at human structural variant loci"
 
-***
+In our paper, we used a graph-based approach to genotype long-read discovered SVs in diverse individuals from the 1000 Genomes Project. We searched for locally adaptive SVs and identified strong recent selection at the immunoglobulin locus in Southeast Asian populations. Further investigation revealed that the haplotype under positive selection was adaptively introgressed from Neanderthals.
 
 https://www.biorxiv.org/content/10.1101/2021.01.26.428314v2
 
