@@ -10,6 +10,6 @@ https://www.biorxiv.org/content/10.1101/2021.01.26.428314v2
 
 Code for genotyping structural variants with [Paragraph](https://github.com/Illumina/paragraph) is available in `paragraph_genotyping`.
 
-Code for metanalysis of SV genotypes (filtering based on genotyping rate and Hardy-Weinberg equilibrium, allele frequency calculation) is in `sv_metanalysis`.
+Code for metanalysis of SV genotypes (filtering based on genotyping rate and Hardy-Weinberg equilibrium, allele frequency calculation) is in `sv_postprocessing`.
 
 Analysis and code for reproducing main and supplementary figures is available in `figs`.
