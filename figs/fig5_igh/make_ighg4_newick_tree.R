@@ -1,52 +1,54 @@
 library(data.table)
 
-### Modify Ohana's selection hypothesis C matrices for visualization as Newick graphs.
-###
-### I assume that the "step" result output from selscan reflects the selected SV's
-### fraction of the linear distance between the neutral and selection matrices.
+### Modify Ohana's selection hypothesis C matrix for visualization of 
+### ancestry component relationships at the IGHG4 locus as a Newick graph.
 ###
 ### Afterwards, run:
 ### ohana/bin/convert cov2nwk <c_matrix> <nwk.out>
 ### ohana/bin/convert nwk2svg <nwk.out> <svg.out>
-###
-### currently this DOES NOT work for the first ancestry component because
-### the selection matrix is different and I didn't bother implementing it
 
+############################################################################
 
-# setwd("/Users/syan/Documents/mccoy-lab/sv_selection/ohana")
-setwd("/scratch/groups/rmccoy22/syan11/sv_selection/ohana")
+### DATA
+
+# path to "neutral" C matrix inferred from downsampled variants
+c_neutral_path <- "chr21_pruned_50_C.matrix"
+# path to C matrix of ancestry component where selection occurred
+c_selection_path <- "k8/c_matrices/chr21_pruned_50_C_p2.matrix"
+
+############################################################################
+
 
 id <- "IGHG4" # name of SV
 max_steps <- 100 # max steps used for selscan
-step <- 32 # steps for SV of interest
-pop_num <- 1 # ancestry component #
+step <- 32 # steps for SV of interest (from `selscan` output)
+pop_num <- 2 # ancestry component #
 k <- 8 # k for admixture
 
 # SV's distance from neutral matrix, as fraction of the max distance
 linear_interp <- step/max_steps
 
 # neutral C matrix
-c_neut <- fread("k8/chr21_pruned_50_C.matrix",
+c_neut <- fread(c_neutral_path,
                 skip = 1)
 # selection hypothesis C matrix
-c_sel <- fread(paste0("k8/c_matrices/chr21_pruned_50_C_p",
-                     pop_num, ".matrix"),
+c_sel <- fread(c_selection_path,
               skip = 1)
 
 new_c <- copy(c_neut)
 
 # function to generate selection C matrix for that SV
 make_cmat <- function(p, step) {
-  a <- c(p)
+  a <- c(p-1)
   # max distance in selection matrix
-  max_dist <- c_sel[p, ..a]
+  max_dist <- c_sel[p-1, ..a]
   # distance in neutral matrix
-  min_dist <- c_neut[p, ..a]
+  min_dist <- c_neut[p-1, ..a]
   diff <- max_dist - min_dist
   sel_dist <- min_dist + diff * linear_interp
   
   # modify appropriate cell of C matrix
-  new_c[p, p] = sel_dist
+  new_c[p-1, p-1] = sel_dist
   
   ### log scaling (if necessary)
   # this is overly complicated because the distances are between 0 and 1
@@ -61,7 +63,7 @@ make_cmat <- function(p, step) {
   new_c <- log_c + zero + old_min
   
   # write header for Ohana C matrix
-  write(paste(k-1, k-1, sep=" "),
+  write(paste(k-1, k-1, sep = " "),
         file = paste0(id, "_sel_log.matrix"))
   # write matrix to file
   fwrite(new_c,
