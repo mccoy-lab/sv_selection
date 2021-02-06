@@ -12,4 +12,6 @@ Code for genotyping structural variants with [Paragraph](https://github.com/Illu
 
 Code for metanalysis of SV genotypes (filtering based on genotyping rate and Hardy-Weinberg equilibrium, allele frequency calculation) is in `sv_postprocessing`.
 
+Code for identifying putative adaptive SVs with [Ohana](https://github.com/jade-cheng/ohana) is in `ohana_adaptive_svs`.
+
 Analysis and code for reproducing main and supplementary figures is available in `figs`.
