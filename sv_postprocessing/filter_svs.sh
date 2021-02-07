@@ -10,6 +10,7 @@
 
 # final VCF with all 1KGP genotypes
 INPUT_VCF=eicherSVs_1KGP_pgGTs_noseq.vcf.gz
+
 # manifest file of all samples genotyped (same as manifest used to run Paragraph)
 MANIFEST=1KGP_samplesCovSexPop.txt
 

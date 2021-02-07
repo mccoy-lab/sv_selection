@@ -13,8 +13,10 @@
 
 # VCF with downsampled variants for admixture inference
 DOWNSAMPLED_VCF=chr21_pruned.vcf.gz
+
 # path to Ohana's `bin` folder
 OHANAPATH=/progs/ohana/bin/
+
 # VCF of SV genotypes
 SV_VCF=eichlerSVs_1KGP_pgGTs_noseq.vcf.gz
 

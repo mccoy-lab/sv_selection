@@ -17,6 +17,7 @@ samples_path <- "samples.txt"
 metadata_path <- "20130606_1KGP_sample_info.csv"
 
 # Q matrices, output from running `qpas` with different k values
+# (input to `lapply` call at end of script)
 
 ############################################################################
 
