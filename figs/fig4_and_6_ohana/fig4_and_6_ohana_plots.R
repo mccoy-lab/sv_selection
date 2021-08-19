@@ -28,10 +28,10 @@ try(detach("package:plyr", unload = TRUE), silent = TRUE)
 pbs_results <- fread("pbs_results.txt")
 gt_callrate <- fread("genotyping_callrate.txt")
 hwe_pvals <- fread("HWE_pvals.txt")
-all_pops_ld <- fread("/work-zfs/rmccoy22/syan11/sv_selection/snp_ld/all_pops_ld_20210114.txt") %>%
-  .[, c("SV", "R2", "pop")]
+#all_pops_ld <- fread("/work-zfs/rmccoy22/syan11/sv_selection/snp_ld/all_pops_ld_20210114.txt") %>%
+#  .[, c("SV", "R2", "pop")]
 svs <- fread("paragraph_sv_lengths.vcf")
-afs <- fread(cmd = "zcat /scratch/groups/rmccoy22/rmccoy22/sv_selection/eichlerSVs_af_allpops_unfolded.frq.strat.gz")
+afs <- fread("/scratch/groups/rmccoy22/rmccoy22/sv_selection/eichlerSVs_af_allpops_unfolded.frq.strat.gz")
 common_svs <- unique(afs[MAF > 0.05 & MAF < 0.95]$SNP) # common in any 1KGP population
 
 sv_freq <- afs %>%
@@ -129,8 +129,8 @@ filter_selscan <- function(p, common_svs_in, sv_freq_in, match_snp_p = FALSE) {
                                           function(x) match_sv_snp_af(selscan_snp, selscan_filt, multiple, x)))
     
     snp_percentile <- pbmclapply(1:nrow(selscan_filt),
-                       function(x) get_lle_perc(freq_matched_snps, selscan_filt, x),
-                       mc.cores = getOption("mc.cores", 48)) %>%
+                                 function(x) get_lle_perc(freq_matched_snps, selscan_filt, x),
+                                 mc.cores = getOption("mc.cores", 48)) %>%
       unlist()
     
     selscan_filt[, snp_perc := snp_percentile]
@@ -569,9 +569,9 @@ setorder(kgp, pos)
 
 kgp$ID <- factor(kgp$ID, levels = kgp[!duplicated(pos)]$ID)
 
-kgp_keep <- kgp[pop %in% c("archaic", "CDX", "KHV", "CHB", "JPT", "CEU", "YRI") & !is.na(gt)] %>%
+kgp_keep <- kgp[pop %in% c("archaic", "CDX", "KHV", "CHB", "JPT", "CEU", "ESN") & !is.na(gt)] %>%
   .[, hap_id := paste(sample_id, haplotype, sep = "_")]
-kgp_keep$pop <- factor(kgp_keep$pop, levels =  c("archaic", "CDX", "KHV", "CHB", "JPT", "CEU", "YRI"))
+kgp_keep$pop <- factor(kgp_keep$pop, levels =  c("archaic", "CDX", "KHV", "CHB", "JPT", "CEU", "ESN"))
 
 sample_order_dt <- kgp_keep[, -"pos"] %>%
   .[, -c("sample_id", "haplotype", "pop", "superpop")] %>%
@@ -601,7 +601,7 @@ keep_samples <- group_by(kgp_keep[pop != "archaic"], hap_id) %>%
 keep_samples <- c(as.character(keep_samples), "altai_NA", "chagyrskaya_NA", "denisova_NA", "vindija_NA")
 
 # haplostrips
-ggplot(data = kgp_keep[hap_id %in% keep_samples], aes(x = ID, y = sample_id, fill = gt)) + 
+ggplot(data = kgp_keep[hap_id %in% keep_samples], aes(x = ID, y = hap_id, fill = gt)) + 
   geom_tile() +
   scale_fill_manual(values = c("white", "black")) +
   theme(axis.text = element_blank(), 
@@ -624,4 +624,4 @@ ggplot(data = ighg4[is_sv == FALSE & !is.na(match_chgyr)], aes(x = pos / 1000, y
   theme_bw() +
   theme(legend.position = "none", 
         panel.grid = element_blank()) +
-  geom_hline(yintercept = 450, lty = "dashed", alpha = 0.2)                        
+  geom_hline(yintercept = 450, lty = "dashed", alpha = 0.2)
