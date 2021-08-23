@@ -124,8 +124,9 @@ ld_filtered_max <- ld_filtered %>%
   .[!duplicated(SV), ]
 nrow(ld_filtered_max) # 63593
 
-# how many SVs have max R2 in any population > 0.8?
+# how many SVs have max R2 in any population > 0.8 or > 0.5?
 nrow(ld_filtered_max[R2 > 0.8]) # 32423
+nrow(ld_filtered_max[R2 > 0.5]) # 42336
 
 # calculate max LD of SV with a SNP in each superpopulation
 ld_filtered[pop %in% c("ACB", "ASW", "ESN", "GWD", "LWK", "MSL", "YRI"), superpop := "AFR"]
@@ -133,13 +134,14 @@ ld_filtered[pop %in% c("CLM", "MXL", "PEL", "PUR"), superpop := "AMR"]
 ld_filtered[pop %in% c("CDX", "CHB", "CHS", "JPT", "KHV"), superpop := "EAS"]
 ld_filtered[pop %in% c("CEU", "FIN", "GBR", "IBS", "TSI"), superpop := "EUR"]
 ld_filtered[pop %in% c("BEB", "GIH", "ITU", "PJL", "STU"), superpop := "SAS"]
-# what percent of SVs have max R2 > 0.8 in each of the five superpopulations?
+# what percent of SVs have max R2 > 0.8 or > 0.5 in each of the five superpopulations?
 lapply(list("AFR", "AMR", "EAS", "EUR", "SAS"),
        function(x) {
          # all SVs in superpop with an LD calculation
          all <- length(unique(ld_filtered[superpop == x]$SV))
          # SVs in superpop with R2 with a SNP > 0.8
-         linked <- length(unique(ld_filtered[superpop == x & R2 > 0.8]$SV))
+         # linked <- length(unique(ld_filtered[superpop == x & R2 > 0.8]$SV))
+         linked <- length(unique(ld_filtered[superpop == x & R2 > 0.5]$SV))
          return(paste(x, linked/all))
        }
 )
